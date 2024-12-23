@@ -1,9 +1,9 @@
 package com.WitsHelp.WitsHelp.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
+
+import java.util.Date;
+import java.util.List;
 //import lombok.Data;
 
 @Entity
@@ -17,7 +17,11 @@ public class User {
     private String email;
     private String password_hash;
     private String reputation;
-    private String joined_date;
+    private Date joined_date;
+    @OneToMany(mappedBy = "user")
+    private List<Question> questions;
+    @OneToMany(mappedBy = "user")
+    private List<Answer> answers;
 //  We are going to come back to add other stuff
 // Getter and Setter for user_id
 public Long getUser_id() {
@@ -65,12 +69,28 @@ public Long getUser_id() {
     }
 
     // Getter and Setter for joined_date
-    public String getJoined_date() {
+    public Date getJoined_date() {
         return joined_date;
     }
 
-    public void setJoined_date(String joined_date) {
+    public void setJoined_date(Date joined_date) {
         this.joined_date = joined_date;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public List<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
     }
 
     // Override toString() method
